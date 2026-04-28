@@ -1,7 +1,6 @@
 import Header from "@/components/Layout/Header/Header";
 import Info from "@/components/Layout/Info/Info";
 import SearchForm from "@/components/Layout/SearchForm/SearchForm";
-import Image from "next/image";
 
 export default function Home() {
   return (
