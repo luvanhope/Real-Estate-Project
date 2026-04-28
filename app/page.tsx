@@ -4,10 +4,12 @@ import SearchForm from "@/components/Layout/SearchForm/SearchForm";
 
 export default function Home() {
   return (
-    <div className="bg-[url('/fon.jpg')] bg-cover bg-center min-h-screen">
-      <Header />
-      <Info />
-      <SearchForm />
-    </div>
+   <>
+   <div className="bg-[url('/fon.jpg')] bg-cover bg-center h-screen">
+     <Header/>
+      <Info/>
+      <SearchForm/>
+   </div>
+   </>
   );
 }
