@@ -2,52 +2,75 @@ import React from "react";
 
 const SearchForm = () => {
   return (
-    <form className="bg-white mx-[20px] my-[60px] p-[16px] sm:p-[20px] rounded-[30px] flex flex-col lg:flex-row flex-wrap gap-[12px] lg:gap-[10px] items-stretch lg:items-center">
-      <select
-        name="city"
-        id="city"
-        defaultValue=""
-        className="w-full sm:w-[48%] lg:w-[216px] h-[60px] lg:h-[70px] px-[16px] border rounded-[20px] bg-transparent text-gray-400 appearance-none"
+    <div className="w-full px-[20px] mt-[60px]">
+      <form
+        className="
+        bg-white 
+        max-w-[100%] 
+        mx-auto 
+        p-[15px] lg:p-[20px] 
+        rounded-[30px] 
+        shadow-md
+        
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        lg:grid-cols-[repeat(4,1fr)_auto] 
+        gap-[12px] lg:gap-[10px]
+        items-center
+      "
       >
-        <option value="" disabled>
-          Город, район
-        </option>
-      </select>
+        <select
+          defaultValue=""
+          className="h-[60px] lg:h-[70px] px-[16px] border rounded-[20px] text-gray-400 appearance-none"
+        >
+          <option value="" disabled>
+            Город, район
+          </option>
+        </select>
 
-      <input
-        className="w-full sm:w-[48%] lg:w-[216px] h-[60px] lg:h-[70px] px-[16px] border rounded-[20px]"
-        type="number"
-        placeholder="Площадь"
-      />
+        <input
+          type="number"
+          placeholder="Площадь"
+          className="h-[60px] lg:h-[70px] px-[16px] border rounded-[20px]"
+        />
 
-      <select
-        name="rooms"
-        id="rooms"
-        defaultValue=""
-        className="w-full sm:w-[48%] lg:w-[216px] h-[60px] lg:h-[70px] px-[16px] border rounded-[20px] bg-transparent appearance-none"
-      >
-        <option value="" disabled>
-          Комнатность
-        </option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select>
+        <select
+          defaultValue=""
+          className="h-[60px] lg:h-[70px] px-[16px] border rounded-[20px] appearance-none"
+        >
+          <option value="" disabled>
+            Комнатность
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
 
-      <input
-        className="w-full sm:w-[48%] lg:w-[216px] h-[60px] lg:h-[70px] px-[16px] border rounded-[20px]"
-        type="number"
-        placeholder="Цена"
-      />
+        <input
+          type="number"
+          placeholder="Цена"
+          className="h-[60px] lg:h-[70px] px-[16px] border rounded-[20px]"
+        />
 
-      <button
-        type="submit"
-        className="w-full lg:w-auto bg-[#DE9C8E] px-[40px] lg:px-[78px] h-[60px] lg:h-[70px] text-white rounded-[20px] text-[18px] lg:text-[20px] font-[500]"
-      >
-        Поиск
-      </button>
-    </form>
+        <button
+          type="submit"
+          className="
+            h-[60px] lg:h-[70px]
+            bg-[#DE9C8E]
+            text-white
+            rounded-[20px]
+            text-[18px] lg:text-[20px]
+            font-[500]
+            px-[40px]
+            w-full lg:w-auto
+          "
+        >
+          Поиск
+        </button>
+      </form>
+    </div>
   );
 };
 

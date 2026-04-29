@@ -1,27 +1,45 @@
+"use client";
 import React from "react";
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center py-[20px] px-[20px] gap-[10px]">
-      
-      <div className="flex items-center gap-[20px] sm:gap-[40px] lg:gap-[51px] text-white font-[400] min-w-0">
-        
-        <img 
-          src="/logo.svg" 
-          alt="logo" 
-          className="w-[90px] sm:w-[110px] lg:w-[130px] shrink-0"
-        />
+    <header className="w-full px-[20px] py-[20px]  ">
+      <div className="max-w-[100%] mx-auto flex justify-between items-start sm:items-center gap-[10px]">
+        <div className="flex flex-col gap-[10px]">
+          <div className="flex items-center gap-[20px]">
+            <img
+              src="/logo.svg"
+              alt="logo"
+              className="w-[100px] sm:w-[120px] lg:w-[140px]"
+            />
 
-        <div className="flex gap-[10px] sm:gap-[15px] lg:gap-[20px] text-[12px] sm:text-[16px] lg:text-[22px] whitespace-nowrap overflow-hidden">
-          <p className="truncate">+1 234 567-89-00</p>
-          <p className="truncate">+1 234 567-89-00</p>
+            <div className="hidden sm:flex gap-[15px] text-white text-[16px] lg:text-[20px]">
+              <p>+1 234 567-89-00</p>
+              <p>+1 234 567-89-00</p>
+            </div>
+          </div>
+
+          <div className="flex sm:hidden flex-col text-white text-[14px]">
+            <p>+1 234 567-89-00</p>
+            <p>+1 234 567-89-00</p>
+          </div>
         </div>
-      </div>
 
-      <button className="flex-shrink-0 text-[12px] sm:text-[16px] lg:text-[22px] font-[400] bg-[#2B3640E5] px-3 sm:px-4 py-2 rounded-[16px] text-white whitespace-nowrap">
-        ❤ Избранное
-      </button>
-      
+        <button
+          className="
+          text-[14px] sm:text-[16px] lg:text-[20px]
+          bg-[#2B3640E5]
+          px-[14px] sm:px-[18px]
+          py-[8px]
+          rounded-[16px]
+          text-white
+          whitespace-nowrap
+          self-start sm:self-auto
+        "
+        >
+          ❤ Избранное
+        </button>
+      </div>
     </header>
   );
 };
