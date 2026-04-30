@@ -2,16 +2,15 @@ import React from "react";
 
 const SearchForm = () => {
   return (
-    <div className="w-full px-[20px] mt-[60px]">
+   <div className="w-full px-[20px] mt-[30px] sm:mt-[60px]"> {/* Уменьшен отступ сверху */}
       <form
         className="
         bg-white 
         max-w-[100%] 
         mx-auto 
-        p-[15px] lg:p-[20px] 
-        rounded-[30px] 
+        p-[20px] 
+        rounded-[20px] sm:rounded-[30px] 
         shadow-md
-        
         grid 
         grid-cols-1 
         sm:grid-cols-2 
