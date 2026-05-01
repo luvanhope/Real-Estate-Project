@@ -21,17 +21,21 @@ const BestVariants = () => {
       </h1>
 
       {loading && <h1 className="text-white text-center">Загрузка...</h1>}
-      {error && <h1 className="text-red-400 text-center">{`Ошибка: ${error}`}</h1>}
+      {error && (
+        <h1 className="text-red-400 text-center">{`Ошибка: ${error}`}</h1>
+      )}
 
       {RealEstates && (
-        <ul className="
+        <ul
+          className="
           /* Мобильная версия (Слайдер) */
           flex gap-5 overflow-x-auto px-10 pb-6 
           snap-x snap-mandatory justify-start md:justify-center
           no-scrollbar 
           /* Десктопная версия (Сетка) */
           md:grid md:grid-cols-3 lg:grid-cols-6 md:px-4 md:overflow-visible md:snap-none
-        ">
+        "
+        >
           {RealEstates.slice(0, 5).map((RealEstate) => (
             <li
               key={RealEstate.id}
@@ -53,7 +57,7 @@ const BestVariants = () => {
                     {RealEstate.customer?.branchName}
                   </h1>
 
-                  <p className="text-[12px] text-[#474A57B2] leading-[1.4] line-clamp-3"    >
+                  <p className="text-[12px] text-[#474A57B2] leading-[1.4] line-clamp-3">
                     {RealEstate.bedrooms}-комнатная квартира, Площадь —{" "}
                     {RealEstate.displaySize}, Адрес —{" "}
                     {RealEstate.displayAddress}

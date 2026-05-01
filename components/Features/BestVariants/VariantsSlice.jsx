@@ -2,12 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    RealEstates: [],
-    loading: false,
-    error: null,
-}
-
-
+  RealEstates: [],
+  loading: false,
+  error: null,
+};
 
 export const fetchRealEstates = createAsyncThunk(
   "RealEstates/fetchRealEstates",
@@ -30,34 +28,30 @@ export const fetchRealEstates = createAsyncThunk(
         },
       );
       return res.data;
-      
     } catch (error) {
-     return rejectWithValue(
-  error.response?.data || error.message || "Unknown error"
-);
+      return rejectWithValue(
+        error.response?.data || error.message || "Unknown error",
+      );
     }
   },
 );
 
-
 const RealEstatesSlice = createSlice({
-    name : 'RealEstate',
-    initialState: initialState,
-    reducers: {},
-    extraReducers: (builder)=> {
- builder.addCase(fetchRealEstates.pending, (state)=>{
-            state.error = null,
-            state.loading = true   
-        })
-        builder.addCase(fetchRealEstates.fulfilled, (state, action)=>{
-            state.RealEstates = action.payload?.data || [];
-            state.loading = false
-        }),
-        builder.addCase(fetchRealEstates.rejected, (state, action)=>{
-            state.error = action.payload,
-            state.loading = false
-        })
-    }
-})
+  name: "RealEstate",
+  initialState: initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchRealEstates.pending, (state) => {
+      ((state.error = null), (state.loading = true));
+    });
+    (builder.addCase(fetchRealEstates.fulfilled, (state, action) => {
+      state.RealEstates = action.payload?.data || [];
+      state.loading = false;
+    }),
+      builder.addCase(fetchRealEstates.rejected, (state, action) => {
+        ((state.error = action.payload), (state.loading = false));
+      }));
+  },
+});
 
-export default  RealEstatesSlice.reducer
+export default RealEstatesSlice.reducer;
