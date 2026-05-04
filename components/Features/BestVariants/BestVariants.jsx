@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRealEstates } from "./VariantsSlice";
+import Link from "next/link";
 
 const BestVariants = () => {
   const dispatch = useDispatch();
@@ -28,60 +29,74 @@ const BestVariants = () => {
       {RealEstates && (
         <ul
           className="
-          /* Мобильная версия (Слайдер) */
-          flex gap-5 overflow-x-auto px-10 pb-6 
-          snap-x snap-mandatory justify-start md:justify-center
-          no-scrollbar 
-          /* Десктопная версия (Сетка) */
-          md:grid md:grid-cols-3 lg:grid-cols-6 md:px-4 md:overflow-visible md:snap-none
-        "
+      flex gap-5 overflow-x-auto px-5 pb-6 
+      snap-x snap-mandatory justify-start
+      no-scrollbar 
+      md:grid md:grid-cols-3 lg:grid-cols-6 md:px-4 md:overflow-visible md:snap-none
+      items-stretch
+    "
         >
           {RealEstates.slice(0, 5).map((RealEstate) => (
-            <li
+            <Link
               key={RealEstate.id}
-              className="
-                min-w-[280px] sm:min-w-[320px] md:min-w-0 
-                snap-center /* Карточка магнитится к центру при скролле */
-                bg-white rounded-[20px] p-3 shadow-md flex flex-col justify-between
-              "
+              href={`/Product/${RealEstate.id}`}
+              className="flex min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center"
             >
-              <div>
-                <img
-                  src={RealEstate.images?.[0]?.srcUrl}
-                  alt={RealEstate.customer?.branchName || "Недвижимость"}
-                  className="w-full h-[177px] object-cover rounded-[16px]"
-                />
+              <li
+                className="
+            w-full
+            bg-white rounded-[20px] p-3 shadow-md 
+            flex flex-col justify-between
+            transition-shadow hover:shadow-lg
+          "
+              >
+                <div>
+                  <div className="w-full h-[177px] overflow-hidden rounded-[16px]">
+                    <img
+                      src={RealEstate.images?.[0]?.srcUrl || "/no-image.png"}
+                      alt={RealEstate.customer?.branchName || "Недвижимость"}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-                <div className="mt-3 flex flex-col gap-2">
-                  <h1 className="font-semibold text-[16px]  line-clamp-1">
-                    {RealEstate.customer?.branchName}
-                  </h1>
+                  <div className="mt-3 flex flex-col gap-2">
+                    <h1 className="font-semibold text-[16px] line-clamp-1 text-[#1F262E]">
+                      {RealEstate.customer?.branchName}
+                    </h1>
 
-                  <p className="text-[12px] text-[#474A57B2] leading-[1.4] line-clamp-3">
-                    {RealEstate.bedrooms}-комнатная квартира, Площадь —{" "}
-                    {RealEstate.displaySize}, Адрес —{" "}
-                    {RealEstate.displayAddress}
-                  </p>
+                    <p className="text-[12px] text-[#474A57B2] leading-[1.4] line-clamp-3">
+                      {RealEstate.bedrooms}-комнат, Площадь —{" "}
+                      {RealEstate.displaySize}, Адрес —{" "}
+                      {RealEstate.displayAddress}
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <h1 className="font-bold text-[18px] mt-4">
-                {RealEstate.price?.amount?.toLocaleString()} $
-              </h1>
-            </li>
+                <h1 className="font-bold text-[18px] mt-4 text-[#1F262E]">
+                  {RealEstate.price?.amount?.toLocaleString()} $
+                </h1>
+              </li>
+            </Link>
           ))}
 
-          {/* КНОПКА "Посмотреть ещё" */}
-          <li className="min-w-[280px] sm:min-w-[320px] md:min-w-0 h-full snap-center">
-            <button
-              className="w-full h-full min-h-[300px] md:min-h-full rounded-[20px] bg-center bg-cover text-white font-semibold text-lg flex items-center justify-center text-center p-5 relative overflow-hidden transition-transform active:scale-95"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/btnFon.png')",
-              }}
-            >
-              <span className="z-10">Посмотреть ещё →</span>
-            </button>
+          <li className="flex min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center">
+            <Link href={"/Variants"} className="w-full">
+              <button
+                className="
+            w-full h-full min-h-[250px] md:min-h-0
+            rounded-[20px] bg-center bg-cover 
+            text-white font-semibold text-lg 
+            flex items-center justify-center text-center p-5 
+            relative overflow-hidden transition-transform active:scale-95
+          "
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/btnFon.png')",
+                }}
+              >
+                <span className="z-10">Посмотреть ещё →</span>
+              </button>
+            </Link>
           </li>
         </ul>
       )}

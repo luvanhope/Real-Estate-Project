@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Description = () => {
@@ -20,7 +21,7 @@ const Description = () => {
             </p>
           </div>
 
-          <button className="flex items-center gap-5 text-[#2B3640] font-medium text-[18px] md:text-[20px] group w-fit">
+          <Link href={"/Variants"} className="flex items-center gap-5 text-[#2B3640] font-medium text-[18px] md:text-[20px] group w-fit">
             Подобрать жилье
             <svg
               width="54"
@@ -36,7 +37,7 @@ const Description = () => {
                 strokeWidth="2"
               />
             </svg>
-          </button>
+          </Link>
         </div>
 
         <div className="w-full md:w-1/2 h-[300px] md:h-auto">

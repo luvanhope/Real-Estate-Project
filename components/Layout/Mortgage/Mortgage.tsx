@@ -23,7 +23,6 @@ const Mortgage = () => {
             </Link>
           </li>
 
-          {/* Вторая карточка */}
           <li className="flex-1 min-w-[280px]">
             <Link
               href="/"
@@ -37,7 +36,6 @@ const Mortgage = () => {
             </Link>
           </li>
 
-          {/* Кнопка "Посмотреть еще" */}
           <li className="flex-1 min-w-[280px]">
             <Link href="/" className="block h-full">
               <button className="w-full h-full min-h-[120px] px-[24px] py-[30px] text-[30px]! md:text-[24px] border rounded-[20px] border-gray-400 text-white flex items-center justify-center gap-4 transition-colors hover:bg-white/10">

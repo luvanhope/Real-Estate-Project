@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchForm = () => {
   return (
-   <div className="w-full px-[20px] mt-[30px] sm:mt-[60px]"> {/* Уменьшен отступ сверху */}
+    <div className="w-full px-[20px] mt-[30px] sm:mt-[60px]">
       <form
         className="
         bg-white 
