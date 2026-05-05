@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "components/Features/BestVariants/BestVariants.jsx", "components/Features/BestVariants/VariantsSlice.jsx", "app/Variants/page.jsx"  ],
+, "components/Features/BestVariants/BestVariants.jsx", "components/Features/BestVariants/VariantsSlice.jsx", "app/Variants/page.jsx", "components/Layout/Header/Header.jsx"  ],
   "exclude": ["node_modules"]
 }

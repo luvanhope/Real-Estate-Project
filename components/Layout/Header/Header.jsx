@@ -1,7 +1,11 @@
 "use client";
+import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const favorites = useSelector((state) => state.FavoritesEstate.favorites);
+
   return (
     <header className="w-full px-[20px] py-[20px]  ">
       <div className="max-w-[100%] mx-auto flex justify-between items-start sm:items-center gap-[10px]">
@@ -24,9 +28,9 @@ const Header = () => {
             <p>+1 234 567-89-00</p>
           </div>
         </div>
-
-        <button
-          className="
+        <Link href={"/Favorites"}>
+          <button
+            className="
           text-[14px] sm:text-[16px] lg:text-[20px]
           bg-[#2B3640E5]
           px-[14px] sm:px-[18px]
@@ -36,9 +40,10 @@ const Header = () => {
           whitespace-nowrap
           self-start sm:self-auto
         "
-        >
-          ❤ Избранное
-        </button>
+          >
+            ❤ Избранное ({favorites.length})
+          </button>
+        </Link>
       </div>
     </header>
   );

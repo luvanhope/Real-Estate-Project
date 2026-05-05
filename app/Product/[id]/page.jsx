@@ -5,11 +5,20 @@ import { useEffect } from "react";
 import { fetchRealEstates } from "../../../components/Features/BestVariants/VariantsSlice";
 import SecondHeader from "../../../components/Layout/SecondHeader/SecondHeader";
 import Link from "next/link";
+// Импортируем иконки и экшены
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import {
+  addToFavorites,
+  deleteFromFavorites,
+} from "@/components/Features/Favorites/FavoritesSlice";
 
 const Page = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
+  // Получаем данные о недвижимости и список избранного
   const { RealEstates, loading } = useSelector((state) => state.RealEstates);
+  const favorites = useSelector((state) => state.FavoritesEstate.favorites);
 
   useEffect(() => {
     if (RealEstates.length === 0) {
@@ -18,6 +27,27 @@ const Page = () => {
   }, [dispatch, RealEstates.length]);
 
   const data = RealEstates.find((item) => String(item.id) === String(id));
+
+  // Проверяем, в избранном ли товар
+  const isFavorite = favorites.some((fav) => String(fav.id) === String(id));
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      dispatch(deleteFromFavorites(data.id));
+    } else {
+      dispatch(
+        addToFavorites({
+          id: data.id,
+          bedrooms: data.bedrooms,
+          price: data.price?.amount?.toLocaleString(),
+          img: data.images?.[0]?.srcUrl || "/no-image.png",
+          branchName: data.customer?.branchName,
+          Size: data.displaySize,
+          adress: data.displayAddress,
+        }),
+      );
+    }
+  };
 
   if (loading || RealEstates.length === 0 || !data) {
     return (
@@ -55,8 +85,18 @@ const Page = () => {
               alt=""
               className="w-full h-full object-cover rounded-lg md:rounded-l-lg md:rounded-r-none"
             />
-            <button className="absolute top-4 left-4 bg-[#DE9C8E]/90 text-white px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 shadow-md active:scale-95 transition-transform">
-              <span>♡</span> В избранное
+
+            {/* Обновленная кнопка избранного */}
+            <button
+              onClick={toggleFavorite}
+              className={`absolute top-4 left-4 px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 shadow-md active:scale-95 transition-all ${
+                isFavorite
+                  ? "bg-white text-red-500 font-bold"
+                  : "bg-[#DE9C8E]/90 text-white"
+              }`}
+            >
+              {isFavorite ? <FaHeart /> : <FaRegHeart />}
+              {isFavorite ? "В избранном" : "В избранное"}
             </button>
           </div>
 
@@ -80,8 +120,6 @@ const Page = () => {
               </Link>
             </div>
           </div>
-
-          <div className="md:hidden flex gap-2 overflow-x-auto"></div>
         </div>
 
         <div className="bg-white rounded-2xl p-5 md:p-6 mb-6 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center shadow-lg text-black">
@@ -110,6 +148,7 @@ const Page = () => {
           </div>
         </div>
 
+        {/* Характеристики */}
         <div className="bg-[#2B3640] rounded-2xl p-6 md:p-8 text-white">
           <h2 className="text-[22px] md:text-[28px] font-bold mb-6">
             Характеристики

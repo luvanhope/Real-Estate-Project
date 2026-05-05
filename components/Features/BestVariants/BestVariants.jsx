@@ -3,6 +3,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRealEstates } from "./VariantsSlice";
 import Link from "next/link";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import {
+  addToFavorites,
+  deleteFromFavorites,
+} from "@/components/Features/Favorites/FavoritesSlice";
 
 const BestVariants = () => {
   const dispatch = useDispatch();
@@ -14,6 +19,8 @@ const BestVariants = () => {
   const RealEstates = useSelector((state) => state.RealEstates.RealEstates);
   const loading = useSelector((state) => state.RealEstates.loading);
   const error = useSelector((state) => state.RealEstates.error);
+
+  const favorites = useSelector((state) => state.FavoritesEstate.favorites);
 
   return (
     <div className="bg-[#2B3640] py-10">
@@ -27,68 +34,90 @@ const BestVariants = () => {
       )}
 
       {RealEstates && (
-        <ul
-          className="
-      flex gap-5 overflow-x-auto px-5 pb-6 
-      snap-x snap-mandatory justify-start
-      no-scrollbar 
-      md:grid md:grid-cols-3 lg:grid-cols-6 md:px-4 md:overflow-visible md:snap-none
-      items-stretch
-    "
-        >
-          {RealEstates.slice(0, 5).map((RealEstate) => (
-            <Link
-              key={RealEstate.id}
-              href={`/Product/${RealEstate.id}`}
-              className="flex min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center"
-            >
-              <li
-                className="
-            w-full
-            bg-white rounded-[20px] p-3 shadow-md 
-            flex flex-col justify-between
-            transition-shadow hover:shadow-lg
-          "
+        <ul className="flex gap-5 overflow-x-auto px-5 pb-6 snap-x snap-mandatory justify-start no-scrollbar md:grid md:grid-cols-3 lg:grid-cols-6 md:px-4 md:overflow-visible md:snap-none items-stretch">
+          {RealEstates.slice(0, 5).map((RealEstate) => {
+            const isFavorite = favorites.some(
+              (fav) => fav.id === RealEstate.id,
+            );
+
+            const toggleFavorite = (e) => {
+              e.preventDefault();
+              if (isFavorite) {
+                dispatch(deleteFromFavorites(RealEstate.id));
+              } else {
+                dispatch(
+                  addToFavorites({
+                    id: RealEstate.id,
+                    bedrooms: RealEstate.bedrooms,
+                    price: RealEstate.price?.amount?.toLocaleString(),
+                    img: RealEstate.images?.[0]?.srcUrl || "/no-image.png",
+                    branchName: RealEstate.customer?.branchName,
+                    Size: RealEstate.displaySize,
+                    adress: RealEstate.displayAddress,
+                  }),
+                );
+              }
+            };
+
+            return (
+              <div
+                key={RealEstate.id}
+                className="relative flex min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center"
               >
-                <div>
-                  <div className="w-full h-[177px] overflow-hidden rounded-[16px]">
-                    <img
-                      src={RealEstate.images?.[0]?.srcUrl || "/no-image.png"}
-                      alt={RealEstate.customer?.branchName || "Недвижимость"}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                <Link
+                  href={`/Product/${RealEstate.id}`}
+                  className="w-full flex"
+                >
+                  <li className="w-full bg-white rounded-[20px] p-3 shadow-md flex flex-col justify-between transition-shadow hover:shadow-lg">
+                    <div>
+                      <div className="w-full h-[177px] overflow-hidden rounded-[16px]">
+                        <img
+                          src={
+                            RealEstate.images?.[0]?.srcUrl || "/no-image.png"
+                          }
+                          alt={
+                            RealEstate.customer?.branchName || "Недвижимость"
+                          }
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
 
-                  <div className="mt-3 flex flex-col gap-2">
-                    <h1 className="font-semibold text-[16px] line-clamp-1 text-[#1F262E]">
-                      {RealEstate.customer?.branchName}
+                      <div className="mt-3 flex flex-col gap-2">
+                        <h1 className="font-semibold text-[16px] line-clamp-1 text-[#1F262E]">
+                          {RealEstate.customer?.branchName}
+                        </h1>
+                        <p className="text-[12px] text-[#474A57B2] leading-[1.4] line-clamp-3">
+                          {RealEstate.bedrooms}-комнат, Площадь —{" "}
+                          {RealEstate.displaySize}, Адрес —{" "}
+                          {RealEstate.displayAddress}
+                        </p>
+                      </div>
+                    </div>
+
+                    <h1 className="font-bold text-[18px] mt-4 text-[#1F262E]">
+                      {RealEstate.price?.amount?.toLocaleString()} $
                     </h1>
+                  </li>
+                </Link>
 
-                    <p className="text-[12px] text-[#474A57B2] leading-[1.4] line-clamp-3">
-                      {RealEstate.bedrooms}-комнат, Площадь —{" "}
-                      {RealEstate.displaySize}, Адрес —{" "}
-                      {RealEstate.displayAddress}
-                    </p>
-                  </div>
-                </div>
-
-                <h1 className="font-bold text-[18px] mt-4 text-[#1F262E]">
-                  {RealEstate.price?.amount?.toLocaleString()} $
-                </h1>
-              </li>
-            </Link>
-          ))}
+                <button
+                  onClick={toggleFavorite}
+                  className="absolute top-5 right-5 p-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm hover:scale-110 transition-all"
+                >
+                  {isFavorite ? (
+                    <FaHeart className="text-red-500 text-lg" />
+                  ) : (
+                    <FaRegHeart className="text-gray-400 text-lg" />
+                  )}
+                </button>
+              </div>
+            );
+          })}
 
           <li className="flex min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center">
             <Link href={"/Variants"} className="w-full">
               <button
-                className="
-            w-full h-full min-h-[250px] md:min-h-0
-            rounded-[20px] bg-center bg-cover 
-            text-white font-semibold text-lg 
-            flex items-center justify-center text-center p-5 
-            relative overflow-hidden transition-transform active:scale-95
-          "
+                className="w-full h-full min-h-[250px] md:min-h-0 rounded-[20px] bg-center bg-cover text-white font-semibold text-lg flex items-center justify-center text-center p-5 relative overflow-hidden transition-transform active:scale-95"
                 style={{
                   backgroundImage:
                     "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/btnFon.png')",
